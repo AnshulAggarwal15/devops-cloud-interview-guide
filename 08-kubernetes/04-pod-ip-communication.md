@@ -59,6 +59,12 @@ This way:
 
 ---
 
+### 🔌 Who assigns Pod IPs? (CNI)
+
+Pod IPs are handed out by the **CNI (Container Network Interface)** plugin — e.g. **Calico, Cilium, Flannel, or the AWS VPC CNI**. The CNI gives every pod a routable IP so any pod can reach any other pod **without NAT** (the flat Kubernetes network model). On **EKS**, the VPC CNI assigns **real VPC IPs** from the subnet, which is why pods consume subnet IP space. Services and DNS sit on top of this to provide *stable* names over those constantly-changing pod IPs.
+
+---
+
 ### 🧠 Bonus Insight
 
 Some apps are stateful (like MySQL, Kafka) and might require **stable network IDs**. In those cases, **headless services with StatefulSets** are used — not static IPs.

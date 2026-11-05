@@ -82,3 +82,6 @@ Root cause: A DevOps engineer had manually increased replica count on the Deploy
 > Manual changes, runtime drift, or auto-generated mutations can cause this, and can be fixed with sync or exclusions.
 
 ---
+
+### Related
+- [Argo CD, GitOps & how a new image gets deployed](./16-argocd-gitops-and-image-updates.md) — what Argo CD does day to day, the CI→ECR→Git→sync pipeline, and why Argo CD watches **Git, not the registry** (Image Updater for auto image bumps).

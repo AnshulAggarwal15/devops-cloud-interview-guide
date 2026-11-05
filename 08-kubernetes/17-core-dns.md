@@ -87,3 +87,8 @@ data:
 | **Pod discovery in custom DNS zones** | Extending CoreDNS with plugins for external name resolution            |
 
 ---
+
+---
+
+### Related
+- [CoreDNS deep dive & troubleshooting](./38-coredns-deep-dive-and-troubleshooting.md) — the full resolution path (resolv.conf/kubelet vs kube-proxy), the `ndots:5` "3 errors behind a successful lookup", and crash/scale troubleshooting (OOM, conntrack, NodeLocal DNSCache).

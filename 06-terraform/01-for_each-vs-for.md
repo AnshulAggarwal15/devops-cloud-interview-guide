@@ -71,3 +71,8 @@ Key takeaways
     for → use when you need a derived list or map for arguments or outputs.
 
     They complement each other: you might build a map with for, then pass it to for_each for scalable resource creation.
+
+---
+
+### Related
+- [`count` vs `for_each` & meta-arguments](./12-count-vs-for_each-and-meta-arguments.md) — note the different pairing: this file is `for_each` (meta-argument) **vs `for`** (expression); that file is `for_each` **vs `count`** (both meta-arguments) and covers deletion behavior.

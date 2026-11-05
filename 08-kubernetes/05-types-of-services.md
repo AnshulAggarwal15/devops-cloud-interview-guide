@@ -1,15 +1,19 @@
 ## What are the Types of Services in Kubernetes?
 
-### Question  
+### Question
+
 What are the different types of Kubernetes Services, and when would you use each?
 
-### Short explanation of the question  
+### Short explanation of the question
+
 This question evaluates your understanding of how different service types in Kubernetes expose applications within or outside the cluster. Each type serves a specific networking use case.
 
 ---
 
-### Answer  
+### Answer
+
 Kubernetes provides 5 main service types:  
+
 - **ClusterIP** – for internal access  
 - **NodePort** – exposes services on node ports  
 - **LoadBalancer** – integrates with cloud load balancers  
@@ -26,10 +30,12 @@ Kubernetes Services group a set of pods and define how other components or clien
 
 ### 📦 1. ClusterIP (Default)
 
-| Purpose          | Internal-only communication between pods within the cluster |
-|------------------|-------------------------------------------------------------|
-| Cluster Scope    | Yes |
-| Externally Exposed | No |
+
+| Purpose            | Internal-only communication between pods within the cluster |
+| ------------------ | ----------------------------------------------------------- |
+| Cluster Scope      | Yes                                                         |
+| Externally Exposed | No                                                          |
+
 
 ```yaml
 spec:
@@ -37,16 +43,19 @@ spec:
 ```
 
 Use case:  
+
 - Microservice A (backend) wants to talk to Microservice B (auth-service) within the cluster.
 
 ---
 
 ### 🌐 2. NodePort
 
-| Purpose          | Exposes the service on a static port on each node’s IP |
-|------------------|--------------------------------------------------------|
-| Cluster Scope    | Yes |
-| Externally Exposed | Yes (via node IP + port) |
+
+| Purpose            | Exposes the service on a static port on each node’s IP |
+| ------------------ | ------------------------------------------------------ |
+| Cluster Scope      | Yes                                                    |
+| Externally Exposed | Yes (via node IP + port)                               |
+
 
 ```yaml
 spec:
@@ -60,16 +69,19 @@ Access format:
 `<NodeIP>:<NodePort>`
 
 Use case:  
+
 - For development/testing environments where you want direct access without a load balancer.
 
 ---
 
 ### ☁️ 3. LoadBalancer
 
-| Purpose          | Exposes the service using a cloud provider’s load balancer |
-|------------------|-------------------------------------------------------------|
-| Cluster Scope    | Yes |
-| Externally Exposed | Yes |
+
+| Purpose            | Exposes the service using a cloud provider’s load balancer |
+| ------------------ | ---------------------------------------------------------- |
+| Cluster Scope      | Yes                                                        |
+| Externally Exposed | Yes                                                        |
+
 
 ```yaml
 spec:
@@ -77,16 +89,19 @@ spec:
 ```
 
 Use case:  
+
 - Production environment on AWS, GCP, or Azure where you want a managed public endpoint.
 
 ---
 
 ### 🌍 4. ExternalName
 
-| Purpose          | Maps the service name to an external DNS |
-|------------------|-------------------------------------------|
-| Cluster Scope    | Yes |
-| Externally Exposed | Yes (indirectly) |
+
+| Purpose            | Maps the service name to an external DNS |
+| ------------------ | ---------------------------------------- |
+| Cluster Scope      | Yes                                      |
+| Externally Exposed | Yes (indirectly)                         |
+
 
 ```yaml
 spec:
@@ -95,16 +110,19 @@ spec:
 ```
 
 Use case:  
+
 - When a pod needs to talk to an external DB or API using a Kubernetes-style DNS name.
 
 ---
 
 ### 🧪 5. Headless Service
 
-| Purpose          | No cluster IP — lets you directly reach individual pod IPs |
-|------------------|-------------------------------------------------------------|
-| Cluster Scope    | Yes |
-| Externally Exposed | No (unless combined with StatefulSet and DNS) |
+
+| Purpose            | No cluster IP — lets you directly reach individual pod IPs |
+| ------------------ | ---------------------------------------------------------- |
+| Cluster Scope      | Yes                                                        |
+| Externally Exposed | No (unless combined with StatefulSet and DNS)              |
+
 
 ```yaml
 spec:
@@ -112,6 +130,7 @@ spec:
 ```
 
 Use case:  
+
 - Stateful apps (e.g., Kafka, MySQL), where each pod has a stable identity and clients need to talk to a specific pod.
 
 ---
@@ -124,16 +143,19 @@ Use case:
 
 ### Summary Table
 
-| Type           | Exposed Outside Cluster | Use Case |
-|----------------|--------------------------|----------|
-| ClusterIP      | ❌                       | Internal microservice communication |
-| NodePort       | ✅ (via node IP:port)     | Quick access for dev/test |
-| LoadBalancer   | ✅ (via public IP)        | External user traffic in cloud |
-| ExternalName   | ✅ (resolves to DNS)      | Connect to external services |
-| Headless       | ❌ (no VIP, DNS only)     | Stateful apps needing stable IDs |
+
+| Type         | Exposed Outside Cluster | Use Case                            |
+| ------------ | ----------------------- | ----------------------------------- |
+| ClusterIP    | ❌                       | Internal microservice communication |
+| NodePort     | ✅ (via node IP:port)    | Quick access for dev/test           |
+| LoadBalancer | ✅ (via public IP)       | External user traffic in cloud      |
+| ExternalName | ✅ (resolves to DNS)     | Connect to external services        |
+| Headless     | ❌ (no VIP, DNS only)    | Stateful apps needing stable IDs    |
+
 
 ---
 
 ### Key takeaway
 
 > "Choose the service type based on how and where your application needs to be accessed — internal-only, via a node, public cloud, or external system."
+

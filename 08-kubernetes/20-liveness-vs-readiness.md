@@ -69,6 +69,22 @@ readinessProbe:
 
 ---
 
+### 🚦 Startup Probe (the third one)
+- **Purpose:** give **slow-starting** containers time to boot before liveness/readiness take over.
+- **Behavior:** while the startup probe runs, the other two are **disabled**; once it succeeds they take over. If it never succeeds, the container is restarted.
+- **Use case:** legacy/JVM apps with long init — use a generous `failureThreshold × periodSeconds` instead of inflating the liveness probe's `initialDelaySeconds`.
+
+```yaml
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  failureThreshold: 30
+  periodSeconds: 10   # allows up to ~300s to start
+```
+
+---
+
 ### 🔄 Summary Table
 
 | Feature            | Liveness Probe             | Readiness Probe              |
